@@ -18,26 +18,26 @@ table.each do |item|
   prices << item[1].to_f
 end
 
-#new array that saves combinations using data from prices array
-combinations = []
+#new array that saves combos using data from prices array
+combos = []
 i = 0
 while i < prices.length
-  combinations << prices.combination(prices.length - i).to_a
+  combos << prices.combo(prices.length - i).to_a
   i += 1
 end
 
 #reduces array nesting into a single array
-combinations = combinations.flatten(1)
+combos = combos.flatten(1)
 
-#saves sum of each combination
+#saves sum of each combo
 sum = 0
 i = 0
-combination_sums = []
-while i < combinations.length
-  combinations[i].each do |number|
+combo_sums = []
+while i < combos.length
+  combos[i].each do |number|
     sum = sum + number
   end
-  combination_sums[i] = sum.round(2)
+  combo_sums[i] = sum.round(2)
   sum = 0
   i += 1
 end
@@ -45,25 +45,25 @@ end
 #saves index of sums that match target price
 sums_index = []
 index = 0
-while index < combination_sums.length
-  if combination_sums[index] == target_price
+while index < combo_sums.length
+  if combo_sums[index] == target_price
     sums_index << index
   end
   index += 1
 end
 
-#accesses sums_index array to save working combinations
-good_combinations = []
+#accesses sums_index array to save working combos
+good_combos = []
 sums_index.each do |index|
-  good_combinations << combinations[index]
+  good_combos << combos[index]
 end
 
 #covert items in array to display the names of associated dishes
 i = 0
 j = 0
-while i < good_combinations.length
-  while j < good_combinations[i].length
-    good_combinations[i][j] = prices.key(good_combinations[i][j])
+while i < good_combos.length
+  while j < good_combos[i].length
+    good_combos[i][j] = prices.key(good_combos[i][j])
     j += 1
   end
   j = 0
@@ -71,13 +71,13 @@ while i < good_combinations.length
 end
 
 #check if there were any solutions
-if good_combinations.length == 0
+if good_combos.length == 0
   p "There are no possible solutions!"
 else
   i = 0
-  p "Number of possible solutions: #{good_combinations.length}"
-  while i < good_combinations.length
-    p "Solution #{i + 1} includes: #{good_combinations[i]}.join(", ")"
+  p "Number of possible solutions: #{good_combos.length}"
+  while i < good_combos.length
+    p "Solution #{i + 1} includes: #{good_combos[i]}.join(", ")"
     i += 1
   end
 end
